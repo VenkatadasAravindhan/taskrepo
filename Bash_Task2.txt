@@ -1,0 +1,30 @@
+#!/bin/bash
+
+for i in {1..10}
+do
+    mkdir dir$i
+done
+
+for i in {1..10}
+do
+    touch test$i
+done
+
+useradd guviuser
+useradd zenuser
+
+for i in {1..5}
+do
+    chown guviuser dir$i
+    chmod 755 dir$i
+    chown guviuser test$i
+    chmod 755 test$i
+done
+
+for i in {6..10}
+do
+    chown zenuser dir$i
+    chmod 400 dir$i
+    chown zenuser test$i
+    chmod 400 test$i
+done
