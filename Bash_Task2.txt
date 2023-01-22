@@ -16,9 +16,9 @@ useradd zenuser
 for i in {1..5}
 do
     chown guviuser dir$i
-    chmod 755 dir$i
+    chmod 777 dir$i
     chown guviuser test$i
-    chmod 755 test$i
+    chmod 777 test$i
 done
 
 for i in {6..10}
