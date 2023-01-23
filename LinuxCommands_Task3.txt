@@ -1,0 +1,235 @@
+Linux Commands:
+
+Sudo su -> To move from other to root user
+Exit -> To move from root to other user
+Pwd -> Present working directory
+Directories:
+Create directory:
+
+Mkdir -> Create directory
+Eg: mkdir <dirname>
+Create a directory within another directory with a hierarchical relationship
+mkdir -p parentdir/childdir
+Change directory:
+
+Cd <dirname>
+Change to Root directory:
+Cd
+Change to parent directory:
+Cd ..
+Cd ../..
+
+Creating Files:
+
+Cat:
+To create a new file
+Cat > Filename
+Press ctrl+d to complete the file modification.
+To create a new text file
+Cat > Filename.txt
+To concatenate the contents of two files
+Cat filename1 filename2 > new
+
+Touch:
+The touch command is used to create an empty file.
+Touch <file name>
+To create multiple files
+Touch <file name> <file name> <file name>
+To create multiple files with required numbers
+Touch filename{1..10}
+
+To Edit file:
+Vi <filename>
+Press I for insert mode
+Esc to exit the editor mode
+:wq! to save and exit the file
+:q to exit the file without saving
+
+To copy files from source to destination file:
+While using the cp(copy) command if the destination file does not exist it creates the destination file automatically.
+Cp filename1 filename2
+To cut and copy the files from source to destination file: (or to rename a file)
+Mv oldfilename newfilename
+To cut and copy the files from source to destination directory: (or to rename a directory)
+Mv olddirname newdirname
+
+To list files:
+Ls
+To list hidden files:
+Ls -a
+To list the directory and files in order
+Ls -l
+
+To remove the empty directory:
+rmdir <dirname>
+To remove the full directory forcefully:
+rm -rf  <dirname>
+rmdir -p <parentdirname/childdirname>
+To remove the directories with file:
+rmdir -pv <dirname>
+To remove the file:
+rm filename
+To list 10 files:
+ls | head
+To list 5 files:
+ls | head -5
+To see the history:
+History
+
+
+To search for a particular word in a file:
+To search the word in the file: (case sensitive)
+grep "t" <filename>
+To search the count of the word in the file or returns the number of lines in which the results matched the search string:
+grep -c "t" <filename>
+grep -h "t" <filename>
+To search the words and display the line in which the word is found:
+grep -n "t" <filename>
+To search the word in the file: (Not case sensitive)
+grep -i "w" <filename>
+To search multiple words in a file:
+grep -e "o" -e "w" <filename>
+
+Find:
+Find <path> <option> <expression>
+.->current directory
+/root directory
+To find a file:
+find -name "file3"
+./file3
+find -name "file*"
+
+To create a user:
+useradd <username>
+To check If a User Exists:
+Id <username>
+To delete a user:
+Userdel -f <username>
+To check the user:
+cat /etc/passwd
+To set the password:
+passwd <username>
+To create a group:
+groupadd <group>
+To check the group:
+cat /etc/group
+To delete a group:
+groupdel <group>
+To check a specific group:
+$ cat /etc/group | grep <group>
+To add the user to a group:
+gpasswd -a <username> <groupname>
+To add multiple users to a group:
+gpasswd -M <username1,username2> <groupname>
+To delete the user from a group:
+gpasswd -d <username> <groupname>
+For help:
+ls –-help
+man useradd
+drwxr-xr-x 5 root     root      46 Nov 26 04:58 ..
+Red=User, Green=Group, Blue=Other users
+Access mode:
+Read r=4
+Write w=2
+Executable x=1
+No access =0
+Changing permission:
+chmod <useraccess> <groupaccess> <otherusersaccess> <filename>
+Eg:
+Chmod 534 <filename>
+Changing owner:
+chown <username> <filename>
+Changing group:
+chgrp <groupname> <filename>
+Archiving and Backing:
+Compression: (We can’t zip a folder)
+To zip:
+gzip <filename>
+To unzip:
+gunzip <filename>
+Archiving:
+To create archive file:
+tar cf <filename>.tar <folder>
+tar cvf <filename>.tar <folder>
+To unarchive the file:
+tar xcf <filename>
+To archive and compress at the same time:
+tar -zcvf <filename> <filename>
+
+To extract:
+tar -zxvf <filename><filename>
+tar=tape archive
+cf=create file
+v=verbose
+Processes:
+Display all running processes:
+top
+Eg:
+ PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND                                                                        
+ 1687 root      20   0       0      0      0 S  0.3  0.0   0:01.94 xfsaild/xvda1    
+PID-Process ID
+NI-Nice value..Lower the value the process will not be stopped even during the lower resource available situation.
+VIRT-Virtual Memory
+SHR-Shared resource
+Uninterrupted sleep: The process is waiting for the CPU memory.
+Eg: mkdir dir1 (once the CPU memory is available the dir will be created)
+Interrupted sleep: The process is waiting for the other process.
+Eg: ls | head -5 (the -5 will wait until the ls head is implemented)
+
+Process states:
+Parent Process
+Child Process - Process that is invoked by the Parent Process
+Orphan Process – Child Process after the Parent Process is terminated
+Zombie Process – Unable to stop a process and CPU consumption is zero for this process.
+Daemon – System process that are running in the background.
+To display the process state:
+ps
+To display the additional information about the process state:
+ps -u
+To display the Daemon state:
+ps -f
+Stopping Process:
+kill pid
+Forcefully Stopping Process:
+kill -9 pid
+Defining the process:
+nice -n <value> process-name
+The process with lowest priority will be killed first.
+The value must be -20 to 20
+renice -n <value> process-name
+
+NETWORKING
+Configuration->Installing
+To check connection:
+ping
+To change the mtu value:
+Ifconfig eth0 mtu <value>
+To turn on the ethernet:
+Ifup eth0 
+To turn off the ethernet:
+Ifdown eth
+To download a file:
+Wget <url>
+Enables data transfer over various network protocols:
+curl [url] > [local-file]
+To check route:
+Traceroute
+To display route table:
+Route -n
+To check DNS:
+dig <webaddress>
+To check active connections:
+Netstat
+Installing a web server:
+Yum install httpd -y
+Create a webpage:
+Cd /var/www/html
+Cat > index.html
+Enable the server service
+Systemctl status httpd
+Systemctl start httpd
+Systemctl stop firewall service
+htop- check CPU utilization
+telent-SSH
+
+
